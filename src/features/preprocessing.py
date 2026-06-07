@@ -38,5 +38,35 @@ def prepare_modeling_dataset(
         df[dummy_columns]
         .astype(int)
     )
+    df = df.rename(
+    columns={
+        "Air temperature [K]":
+            "air_temperature_k",
+
+        "Process temperature [K]":
+            "process_temperature_k",
+
+        "Rotational speed [rpm]":
+            "rotational_speed_rpm",
+
+        "Torque [Nm]":
+            "torque_nm",
+
+        "Tool wear [min]":
+            "tool_wear_min",
+
+        "Temperature Difference":
+            "temperature_difference",
+
+        "Power Proxy":
+            "power_proxy",
+
+        "Mechanical Stress Index":
+            "mechanical_stress_index",
+
+        "Thermal Stress Index":
+            "thermal_stress_index"
+    }
+)
 
     return df
