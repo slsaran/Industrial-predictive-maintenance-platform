@@ -16,6 +16,9 @@ from src.pipeline.inference_pipeline import (
 from src.scoring.prediction_report import (
     create_prediction_report
 )
+from src.explainability.shap_analysis import (
+    get_top_drivers
+)
 
 app = FastAPI()
 
@@ -55,9 +58,21 @@ def predict(
 
     )[0][1]
 
+    drivers_df = get_top_drivers(
+    model,
+    features,
+    top_n=3
+    )
+
+    top_drivers = drivers_df[
+        "feature"
+    ].tolist()
+
     report = create_prediction_report(
 
-        probability
+        probability,
+
+        top_drivers
 
     )
 

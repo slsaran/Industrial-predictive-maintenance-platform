@@ -1,11 +1,10 @@
 import shap
+import pandas as pd
 
 
 def create_shap_explainer(model):
 
-    explainer = shap.TreeExplainer(model)
-
-    return explainer
+    return shap.TreeExplainer(model)
 
 
 def calculate_shap_values(
@@ -13,29 +12,29 @@ def calculate_shap_values(
     X
 ):
 
-    shap_values = explainer.shap_values(X)
-
-    return shap_values
-
-import pandas as pd
+    return explainer.shap_values(X)
 
 
-def get_top_prediction_drivers(
-    shap_values,
-    feature_values,
+def get_top_drivers(
+    model,
+    features,
     top_n=3
 ):
-    """
-    Extract top positive SHAP contributors.
-    """
+
+    explainer = create_shap_explainer(
+        model
+    )
+
+    shap_values = calculate_shap_values(
+        explainer,
+        features
+    )
 
     contribution_df = pd.DataFrame({
 
-        "feature": feature_values.index,
+        "feature": features.columns,
 
-        "feature_value": feature_values.values,
-
-        "shap_value": shap_values
+        "shap_value": shap_values[0]
 
     })
 

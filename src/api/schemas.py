@@ -42,3 +42,5 @@ class PredictionResponse(BaseModel):
     risk_score: float
 
     risk_level: str
+
+    top_drivers: list[str]

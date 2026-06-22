@@ -5,13 +5,11 @@ from src.scoring.risk_scoring import (
 
 
 def create_prediction_report(
-    failure_probability
+    failure_probability,
+    top_drivers
 ):
-    """
-    Generate prediction report.
-    """
 
-    report = {
+    return {
 
         "failure_probability":
         round(
@@ -29,7 +27,9 @@ def create_prediction_report(
         "risk_level":
         classify_risk_level(
             failure_probability
-        )
-    }
+        ),
 
-    return report
+        "top_drivers":
+        top_drivers
+
+    }
