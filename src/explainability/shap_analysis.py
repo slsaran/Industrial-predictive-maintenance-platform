@@ -38,12 +38,15 @@ def get_top_drivers(
 
     })
 
-    contribution_df = contribution_df.sort_values(
-
-        by="shap_value",
-
-        ascending=False
-
+    contribution_df["abs_shap"] = (
+    contribution_df["shap_value"].abs()
     )
 
-    return contribution_df.head(top_n)
+    contribution_df = contribution_df.sort_values(
+        by="abs_shap",
+        ascending=False
+    )
+
+    return contribution_df[
+        ["feature", "shap_value"]
+    ].head(top_n)
